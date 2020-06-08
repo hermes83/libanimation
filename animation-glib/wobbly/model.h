@@ -50,6 +50,12 @@ void animation_wobbly_model_deform_texcoords (AnimationWobblyModel  *model,
                                               AnimationVector  *uv,
                                               AnimationVector *deformed);
 
+void animation_wobbly_model_deform_texcoords_plain (AnimationWobblyModel  *model,
+                                                    double  uvX,
+                                                    double  uvY,                                              
+                                                    double  *deformedX,
+                                                    double  *deformedY);
+
 void animation_wobbly_model_query_extremes (AnimationWobblyModel  *model,
                                             AnimationVector *top_left,
                                             AnimationVector *top_right,

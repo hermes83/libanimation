@@ -171,6 +171,40 @@ animation_wobbly_model_deform_texcoords (AnimationWobblyModel *model,
 }
 
 /**
+ * animation_wobbly_model_deform_texcoords_plain:
+ * @model: A #AnimationWobblyModel
+ * @uvX: A #double specifying the unit X coordinate relative to
+ *      the top right corner of a square to be deformed.
+ * @uvY: A #double specifying the unit Y coordinate relative to
+ *      the top right corner of a square to be deformed.
+ * @deformedX: (out) (allow-none): A double specifying the X
+ *             absolute position in space that the unit co-ordinate would
+ *             be deformed to.
+ * @deformedY: (out) (allow-none): A double specifying the Y
+ *             absolute position in space that the unit co-ordinate would
+ *             be deformed to.
+ *
+ * Deform texture-coordinates into real space according to the model.
+ */
+void
+animation_wobbly_model_deform_texcoords_plain (AnimationWobblyModel *model,
+                                         double               uvX,
+                                         double               uvY,
+                                         double               *deformedX,
+                                         double               *deformedY)
+{
+  AnimationWobblyModelPrivate *priv =
+    reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
+
+  g_return_if_fail (deformedX != NULL);
+  g_return_if_fail (deformedY != NULL);
+
+  animation::Point deformed_point (priv->model->DeformTexcoords (animation::Point (uvX, uvY)));
+  *deformedX = animation::geometry::dimension::get <0> (deformed_point);
+  *deformedY = animation::geometry::dimension::get <1> (deformed_point);
+}
+
+/**
  * animation_wobbly_model_deform_query_extremes:
  * @model: A #AnimationWobblyModel
  * @uv: A #AnimationVector specifying the unit coordinates relative to
